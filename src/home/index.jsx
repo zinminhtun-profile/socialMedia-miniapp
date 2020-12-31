@@ -20,6 +20,7 @@ function Index() {
         follow_count = {profileResult.follow_count}
         following_count = {profileResult.following_count}
         posts = {profileResult.posts}
+        post_count = {profileResult.post_count}
       />
      
     </>

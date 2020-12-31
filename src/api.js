@@ -13,7 +13,8 @@ export const useStateAPI = (url) => {
       external_url:'',
       follow_count:0,
       following_count:0,
-      posts:[]
+      posts:[],
+      post_count:0,
     })
     React.useEffect(() => {
       // This is the abort controller that will cancel the fetch if the component was unmounted
@@ -32,7 +33,8 @@ export const useStateAPI = (url) => {
             external_url : data.graphql.user.external_url,
             follow_count : data.graphql.user.edge_followed_by.count,
             following_count : data.graphql.user.edge_follow.count,
-            posts : data.graphql.user.edge_owner_to_timeline_media.edges
+            posts : data.graphql.user.edge_owner_to_timeline_media.edges,
+            post_count : data.graphql.user.edge_owner_to_timeline_media.count
           })
         
         } catch (e) {
