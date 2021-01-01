@@ -4,7 +4,7 @@ import Home from './home';
 import Detail from './detail';
 import Navbar from './navbar';
 
-function Routing() {
+const Routing = ()=>{
 
   return (
         <Switch>
@@ -23,15 +23,15 @@ function Routing() {
   
 }
 
-function App() {
+const App = () => {
 
   return (
-    <>
+    <div data-testid="app">
        <Router>
           <Navbar/>
           <Routing/>
        </Router>
-    </>
+    </div>
   );
 }
 

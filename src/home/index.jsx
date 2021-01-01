@@ -1,30 +1,44 @@
-import React from 'react'
-import { useStateAPI } from '../api'
-import Profile from '../component/profile'
+import React from "react";
+import { useStateAPI } from "../api";
+import Profile from "../component/profile";
 
+const  Home = () => {
 
-function Index() {
-  // const [profileImage, setProfileImage] = useState("")
-  const profileResult = useStateAPI('https://www.instagram.com/lacorgi/?__a=1&max_id=endcursor')
-  console.log(profileResult)
-  // setProfileImage(profileResult.data.graphql.user.profile_pic_url)
-  // console.log(profileImage)
+  const profileResult = useStateAPI(
+    "https://www.instagram.com/lacorgi/?__a=1&max_id=endcursor"
+  );
+
+  if (!profileResult) {
+    return <p>Loading....</p>;
+  }
+  const result = profileResult.user;
+  const {
+    username,
+    profile_pic_url,
+    biography,
+    external_url,
+    edge_followed_by,
+    edge_follow,
+    edge_owner_to_timeline_media,
+  } = result;
+
   return (
     <>
-    
-      <Profile 
-        name = {profileResult.name}
-        profile = {profileResult.profile}
-        biography = {profileResult.biography}
-        external_url = {profileResult.external_url}
-        follow_count = {profileResult.follow_count}
-        following_count = {profileResult.following_count}
-        posts = {profileResult.posts}
-        post_count = {profileResult.post_count}
-      />
-     
+      {result && (
+        <Profile
+          data-testid="profile"
+          name={username}
+          profile={profile_pic_url}
+          biography={biography}
+          external_url={external_url}
+          follow_count={edge_followed_by.count}
+          following_count={edge_follow.count}
+          posts={edge_owner_to_timeline_media.edges}
+          post_count={edge_owner_to_timeline_media.count}
+        />
+      )}
     </>
-  )
+  );
 }
 
-export default Index
+export default Home;

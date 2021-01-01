@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './index.css'
 
-function Navbar() {
+const Navbar = () => {
     return (
         <nav className="white">
             <div className="nav-wrapper container black-text">

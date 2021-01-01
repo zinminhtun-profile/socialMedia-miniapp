@@ -2,35 +2,23 @@ import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import './index.css'
 import { Link } from 'react-router-dom'
+import { convert } from '../../util'
 
 
 const Index = ({ name , profile , biography, external_url , follow_count, following_count,posts, post_count }) => {
 
-  function convert(value)
-  {
-      if(value>=1000000)
-      {
-          value=(value/1000000)+"M"
-      }
-      else if(value>=1000)
-      {
-          value=Math.trunc((value/1000))+"K";
-      }
-      return value;
-  }
-
     return (
         <>
-             <div className="container wrapper">
-        <div className="row">
-          <div className="col s6 m3 offset-s3" style={{ border:'1px solid red;'}}>
-              <Avatar
-                      src={profile}
-                      size={100}
-                      round={true}
-                      style={{ height: '170px', width: '170px' }}
-                    />
-          </div>
+          <div className="container wrapper">
+          <div className="row">
+            <div className="col s6 m3 offset-s3" style={{ border:'1px solid red;'}}>
+                <Avatar
+                        src={profile}
+                        size={100}
+                        round={true}
+                        style={{ height: '170px', width: '170px' }}
+                      />
+            </div>
           <div className="col m6  offset-s1 offset-m1">
             <div className="row" style={{ marginTop:"20px"}}>
                 <div className="col m12">

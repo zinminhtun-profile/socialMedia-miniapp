@@ -21,6 +21,13 @@
    justify-content: space-between;
 }
 
+.responsive{
+    
+    object-fit: cover;
+    object-position:center;
+   
+}
+
 
 @media screen and (max-width: 480px){
   
@@ -28,6 +35,8 @@
         width: 100%;
         max-width: 400px;
         height: auto;
+        object-fit: cover;
+        object-position:center;
     }
 }
   @media (max-width: 770px) {

@@ -2,36 +2,39 @@ import React from "react";
 import Avatar from '@material-ui/core/Avatar'
 import { useParams } from 'react-router'
 import "./index.css";
-import { useDetailAPI, useStateAPI } from "../api";
+import { useStateAPI } from "../api";
 import { Link } from "react-router-dom";
+import { convert } from "../util";
+
+
+
+
 function Index() {
   let { slug } = useParams()
-  const detailResult = useDetailAPI(`https://www.instagram.com/p/${slug}/?__a=1&max_id=endcursor`)
+
+  const detailResult = useStateAPI(`https://www.instagram.com/p/${slug}/?__a=1&max_id=endcursor`)
   const profileResult = useStateAPI('https://www.instagram.com/lacorgi/?__a=1&max_id=endcursor')
 
-  console.log(detailResult);
-  console.log(profileResult.posts);
-
-  function convert(value)
-  {
-      if(value>=1000000)
-      {
-          value=(value/1000000)+"M"
-      }
-      else if(value>=1000)
-      {
-          value=Math.trunc((value/1000))+"K";
-      }
-      return value;
+  if (!profileResult || !detailResult) {
+    return <p>Loading...</p>;
   }
- 
+
+  const result = profileResult.user;
+  const {
+    edge_owner_to_timeline_media,
+  } = result;
+
+  const detail = detailResult.shortcode_media
+  const {display_url,owner,edge_media_to_parent_comment,edge_media_preview_like} = detail
+
+
   return (
     <>
       <div className="container wrapper">
         <div className="row">
           <div className="col m7">
             <img
-              src={detailResult.display_url}
+              src={display_url}
               width="440px"
               height="550px"
               alt=""
@@ -42,14 +45,14 @@ function Index() {
             <div className="row">
               <div className="col m3">
                 <Avatar
-                  src={detailResult.profile}
+                  src={owner.profile_pic_url}
                   size="50"
                   round={true}
                 />
               </div>
               <div className="col m9"><Link
                     to={`${process.env.PUBLIC_URL}/home`}   
-                  ><b>{detailResult.username}</b>
+                  ><b>{owner.username}</b>
                   </Link> . follow</div>
             </div>
             <hr />
@@ -59,7 +62,7 @@ function Index() {
               <div className="row">
                 <div className="col m3">
                   <Avatar
-                    src={detailResult.profile}
+                    src={owner.profile_pic_url}
                     size="50"
                     round={true}
                   />
@@ -77,7 +80,7 @@ function Index() {
               </div>
 
               {
-                  detailResult.comment.map((item) =>(
+                  edge_media_to_parent_comment.edges.map((item) =>(
                 <div className="row" key={item.node.id}>
                   <div className="col m3">
                     <Avatar
@@ -135,7 +138,7 @@ function Index() {
                   <path d="M47.8 3.8c-.3-.5-.8-.8-1.3-.8h-45C.9 3.1.3 3.5.1 4S0 5.2.4 5.7l15.9 15.6 5.5 22.6c.1.6.6 1 1.2 1.1h.2c.5 0 1-.3 1.3-.7l23.2-39c.4-.4.4-1 .1-1.5zM5.2 6.1h35.5L18 18.7 5.2 6.1zm18.7 33.6l-4.4-18.4L42.4 8.6 23.9 39.7z"></path>
                 </svg>
                 <br />
-                <span><b>{detailResult.like_count} likes</b></span>
+                <span><b>{edge_media_preview_like.count} likes</b></span>
               </div>
               <div className="col m3 icons">
                 <svg
@@ -158,12 +161,12 @@ function Index() {
       <div className="container wrapper">
         <div className="row">
           <p>
-            more posts from <b>{detailResult.username}</b>
+            more posts from <b>{owner.username}</b>
           </p>
         </div>
         <div className="row">
         {
-                  profileResult.posts.map((item) => (
+                 edge_owner_to_timeline_media.edges.map((item) => (
                     <Link
                     data-testid="location"
                     to={`${process.env.PUBLIC_URL}/detail/${item.node.shortcode}`}
