@@ -5,12 +5,12 @@ import Home from ".";
 jest.mock("../api", () => ({
     useStateAPI: () => {
     return {
-      graphql: {
+      
         user: {
-          username: 'lacorgi',
-          profile_pic_url:'https://instagram.frgn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/11856603_940548069324829_395577565_a.jpg?_nc_ht=instagram.frgn2-2.fna.fbcdn.net&_nc_ohc=x9xpMGBtW6kAX9zSbLt&tp=1&oh=11d9e13bcde344737f46f67d10ad4202&oe=601736B6',
-          biography:'Corgi Brothers in Los Angeles \nHello@lacorgi.co\n↓ Try 10 lb of Darwin’s food with code LaCorgi2020',
-          external_url:'http://www.darwinspet.com/?inf=lacorgi',
+          username: "lacorgi",
+          profile_pic_url:"https://instagram.frgn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/11856603_940548069324829_395577565_a.jpg?_nc_ht=instagram.frgn2-2.fna.fbcdn.net&_nc_ohc=x9xpMGBtW6kAX9zSbLt&tp=1&oh=11d9e13bcde344737f46f67d10ad4202&oe=601736B6",
+          biography:"Corgi Brothers in Los Angeles \nHello@lacorgi.co\n↓ Try 10 lb of Darwin’s food with code LaCorgi2020",
+          external_url:"http://www.darwinspet.com/?inf=lacorgi",
           edge_followed_by:{
             count: 504374
           },
@@ -66,7 +66,7 @@ jest.mock("../api", () => ({
             ]
           }
         }
-      }
+     
        
     };
   },

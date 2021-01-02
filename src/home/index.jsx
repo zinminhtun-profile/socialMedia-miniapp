@@ -26,7 +26,6 @@ const  Home = () => {
     <>
       {result && (
         <Profile
-          data-testid="profile"
           name={username}
           profile={profile_pic_url}
           biography={biography}
